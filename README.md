@@ -1,6 +1,26 @@
-# A mock Computo contribution: t-SNE remake
+# COPPY
 
-A prototype of published paper (using quarto)
+Random generation of copulas with Python
+----------------------------------------
 
-[Published version here](https://computo.sfds.asso.fr/published-paper-tsne/)
+**COPPY** is a Python module to simulate copula.
+
+Installation
+------------
+
+Dependencies
+~~~~~~~~~~~~
+
+COPPY requires :
+
+- Python (>= 3.7)
+- NumPY (>= 1.14.6)
+- SciPY (>= 1.1.0)
+
+Source code
+~~~~~~~~~~~
+
+You can check the latest sources with the command::
+
+  git clone https://github.com/Aleboul/COPPY/
 

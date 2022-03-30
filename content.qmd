@@ -61,7 +61,7 @@ for the tail copula which capture the dependence in the upper tail. The empirica
 this function is shown to converge weakly to a Gaussian process which is similar in 
 structure to the weak limit of the empirical copula process.
 
-While software implementation of copulas has been thoroughly explored in *R*
+While software implementation of copulas has been thoroughly explored in $\textsf{R}$
 software see, \emph{e.g.}, @evdR, @copulaR, @VineCopulaR, methods to work with copula
 in $\textsf{Python}$ are still in their infancy. As far as we know, copulas devoted
 module in $\textsf{Python}$ are mainly designed for modeling (see @CopulasPy, @CopulaePy).
@@ -379,7 +379,7 @@ We thus represent in three dimensions these realizations below.
 We now proceed to a case study where we use our \textsf{Python} module to assess, under a finite sample framework, the asymptotic properties of 
 an estimator of the $\lambda$-madogram when data are completely missing at random (MCAR). This case study comes from numerical results of @boulin2021non. The 
 $\lambda$-madogram belongs to a family of estimators, namely the madogram, which is of prime interest in environmental sciences, as it is designed to model 
-pairwise dependence between maxima in space, see \emph{e.g.} \cite{bernard:hal-03207469,BADOR201517,saunders} where the madogram was used as a dissimilarity 
+pairwise dependence between maxima in space, see \emph{e.g.} @bernard:hal-03207469 @BADOR201517 @saunders where the madogram was used as a dissimilarity 
 measure to perform clustering. Where in several fields, for example econometrics (@woolridge2007) or survey theory (@chauvet2015), the MCAR hypothesis appears 
 to be a strong hypothesis, this hypothesis is more realistic in environmental research as the missingness of one observation is usually due to instruments, 
 communication and processing errors that may be reasonably supposed independent of the quantity of interest. In @sec-background, we define 
