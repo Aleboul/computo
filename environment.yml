@@ -5,5 +5,5 @@ dependencies:
   - jupyter
   - matplotlib
   - numpy
-  - seaborn
-  - scipy
+  - clayton
+ 
