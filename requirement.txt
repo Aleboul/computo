@@ -3,4 +3,3 @@ scipy
 clayton
 matplotlib
 pandas
-jupyter
