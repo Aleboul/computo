@@ -45,7 +45,7 @@ Software implementation of copulae has been extensively studied in $\textsf{R}$,
 
 Through this paper we adopt the following notational conventions: all the indices will start at $0$ as in $\textsf{Python}$. Consider $(\Omega, \mathcal{A}, \mathbb{P})$ a probability space and let $\textbf{X} = (X_0, \dots, X_{d-1})$ be a $d$-dimensional random vector with values in $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$, with $d \geq 2$ and $\mathcal{B}(\mathbb{R}^d)$ the Borel $\sigma$-algebra of $\mathbb{R}^d$. This random vector has a joint distribution $F$ with copula $C$ and its margins are denoted by $F_j(x) = \mathbb{P}\{X_j \leq x\}$ for all $x \in \mathbb{R}$ and $j \in \{0, \dots, d-1\}$. Denote by $\textbf{U} = (U_0, \dots, U_{d-1})$ a $d$ random vector with copula $C$ and uniform margins. All bold letters $\textbf{x}$ will denote a vector of $\mathbb{R}^d$.
 
-The $\textsf{clayton}$ package, whose Python code can be found in this [GitHub repository](https://github.com/Aleboul/clayton), uses object-oriented features of the Python language. The package contains classes for Archimedean, elliptical, and extreme value copulae. In section @sec-classes, we briefly describe the classes defined in the package. @sec-rng presents methods for generating random vectors. In section @sec-pairwise, we apply the $\textsf{clayton}$ package to model pairwise dependence between maxima. @sec-discussion discusses potential improvements to the package and provides concluding remarks. The from @sec-bv_arch to @sec-mv_ellip define and illustrate all the parametric copula models implemented in the package.
+The $\textsf{clayton}$ package, whose Python code can be found in this [GitHub repository](https://github.com/Aleboul/clayton), uses object-oriented features of the Python language. The package contains classes for Archimedean, elliptical, and extreme value copulae. In @sec-classes, we briefly describe the classes defined in the package. @sec-rng presents methods for generating random vectors. In @sec-pairwise, we apply the $\textsf{clayton}$ package to model pairwise dependence between maxima. @sec-discussion discusses potential improvements to the package and provides concluding remarks. Sections from @sec-bv_arch to @sec-mv_ellip define and illustrate all the parametric copula models implemented in the package.
 
 # Classes {#sec-classes}
 
@@ -65,7 +65,7 @@ $$
  	C(\textbf{u}) = \varphi^\leftarrow (\varphi(u_0)+ \dots + \varphi(u_{d-1})).
 $$ {#eq-arch_cop}
 
-If this relation holds and $C$ is a copula function, then $C$ is called an Archimedean copula. A necessary condition for \eqref{eq:arch_cop} to be a copula is that the generator $\varphi$ is a $d$-monotonic function, i.e., it is differentiable up to the order $d$ and its derivatives satisfy
+If this relation holds and $C$ is a copula function, then $C$ is called an Archimedean copula. A necessary condition for @eq-arch_cop to be a copula is that the generator $\varphi$ is a $d$-monotonic function, i.e., it is differentiable up to the order $d$ and its derivatives satisfy
 
 $$
   (-1)^k \left(\varphi\right)^{(k)}(x) \geq 0, \quad k \in \{1, \dots, d\}
@@ -121,7 +121,7 @@ np.random.seed(10)
 
 ## The bivariate case {#sec-biv_case}
 
-In this subsection, we address the problem of generating a bivariate sample from a specified joint distribution with $d=2$. Suppose that we want to sample a bivariate random vector $\textbf{X}$ with copula $C$. In the case where the components are independent, the sampling procedure is straightforward: we can independently sample $X_0$ and $X_1$. However, in the general case where the copula is not the independence copula, this approach is not applicable.
+In this subsection, we address the problem of generating a bivariate sample from a specified joint distribution with $d=2$. Suppose that we want to sample a bivariate random vector $\textbf{X}$ with copula $C$. In the case where the components are independent, the sampling procedure is straightforward: we can independently sample $X_0$ and $X_1$. However, in the general case where the copula is not the independent copula, this approach is not applicable.
 
 One solution to this problem is to use the conditioning method to sample from the copula. This method relies on the fact that given $(U_0, U_1)$ with copula $C$, the conditonal law of $U_1$ given $U_0$ is written as: 
 
