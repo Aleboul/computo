@@ -18,18 +18,14 @@ jobs:
     steps:
       - name: Checking out repository for Github action
         uses: actions/checkout@v2
-        
-      - name: Installing dependencies with Miniconda
-        uses: conda-incubator/setup-miniconda@v2
+  
+      - name: Set up Python 3.10
         with:
-          auto-update-conda: true
-          auto-activate-base: false
-          miniconda-version: 'latest'
-          python-version: 3.9
-          environment-file: environment.yml
-          activate-environment: computo
-          
-      - run: pip install clayton
+          python-version: 3.10
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Installing quarto
         uses: quarto-dev/quarto-actions/setup@v2
