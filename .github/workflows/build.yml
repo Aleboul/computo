@@ -28,6 +28,13 @@ jobs:
           python-version: 3.9
           environment-file: environment.yml
           activate-environment: computo
+          
+      - name: Install clayton
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - run: pip install clayton
 
       - name: Installing quarto
         uses: quarto-dev/quarto-actions/setup@v2
