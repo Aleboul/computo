@@ -154,8 +154,8 @@ We now have all the necessary theoretical tools to give details on how the $\tex
 The following code illustrates the random vector generation for a bivariate Archimedean copula. By defining the parameter of the copula and the sample's length, the constructor for this copula is available and can be called using the $\texttt{Clayton}$ method, such as:
 
 ```{python}
-  n_sample, theta = 1024, -0.5
-  copula = archimedean.Clayton(theta=theta, n_sample=n_sample)
+  n_samples, theta = 1024, -0.5
+  copula = archimedean.Clayton(theta=theta, n_samples=n_samples)
 ```
 
 To obtain a sample with uniform margins and a Clayton copula, we can use the $\texttt{sample\_unimargin}$ method, as follows:
@@ -218,8 +218,8 @@ Samples from the Gaussian and Student copula are directly given by Algorithm 5.9
 We present how to construct a multivariate Archimedean copula and to generate random vectors from this model. Introducing the parameters of the copula, we appeal the following lines to construct our copula object:
 
 ```{python}
-d, theta, n_sample = 3, 2.0, 1024
-copula = archimedean.Clayton(theta=theta, n_sample=n_sample, dim=d)
+d, theta, n_samples = 3, 2.0, 1024
+copula = archimedean.Clayton(theta=theta, n_samples=n_samples, dim=d)
 ```
 
 We now call the $\texttt{sample\_unimargin}$ method to obtain randomly generated vectors.
@@ -297,7 +297,7 @@ Benefiting from generating data with $\textsf{clayton}$ we are thus able, with M
 ```{python}
   def gauss_function(x, x0, sigma):
       return np.sqrt(1. / (2*np.pi * sigma**2)) * np.exp(-(x - x0) ** 2 / (2 * sigma**2))
-  n_sample = 512
+  n_samples = 512
   theta, psi1, psi2 = 10, 0.1, 1.0
 ```
 
@@ -305,7 +305,7 @@ We choose the standard normal and exponential as margins. To simulate this sampl
 
 ```{python}
   copula = evd.AsyNegLog(theta=theta, psi1=psi1,
-                         psi2=psi2, n_sample=n_sample)
+                         psi2=psi2, n_samples=n_samples)
   sample = copula.sample(inv_cdf=[norm.ppf, expon.ppf])
 ```
 
@@ -323,7 +323,7 @@ The $1024 \times 2$ array $\texttt{sample}$ contains $1024$ realization of the $
 Before going into further details, we will present the missing mechanism. Let $V_0$ and $V_1$ be random variables uniformly distributed under the $]0,1[$ segment with copula $C_{(V_0,V_1)}$. We set $I_0 = 1\{{V_0 \leq p_0}\}$ and $I_1 = 1\{{V_1 \leq p_1}\}$. It is thus immediate that $I_0 \sim \mathcal{B}(p_0)$ and $I_1 \sim \mathcal{B}(p_1)$ and $p \triangleq \mathbb{P}\{I_0 = 1, I_1 =1 \} = C_{(V_0,V_1)}(p_0, p_1)$. For our illustration, we will take $C_{(V_0,V_1)}$ as a \texttt{Joe} copula with parameter $\theta = 2.0$ (we refer to @sec-bv_arch for a definition of this copula). For this copula, it is more likely to observe a realization $v_0 \geq 0.8$ from $V_0$ if $v_1 \geq 0.8$ from $V_1$. If we observe $v_1 < 0.8$, the realization $v_0$ is close to being independent of $v_1$. In climate studies, extreme events could damage the recording instrument in the surrounding regions where they occur, thus the missingness of one variable may depend on others. We initialize the copula $C_{(V_0,V_1)}$ with the following line:
 
 ```{python}
-  copula_miss = archimedean.Joe(theta=2.0, n_sample=n_sample)
+  copula_miss = archimedean.Joe(theta=2.0, n_samples=n_samples)
 ```
 
 For a given $\lambda \in ]0,1[$, we now want to estimate a $\lambda$-madogram with a sample from the asymmetric negative logistic model, where some observations are missing due to the missing mechanism described above. We will repeat this step several times to compute an empirical counterpart of the asymptotic variance. The \texttt{MonteCarlo} object has been designed for this purpose: we specify the number of iterations $n_{iter}$ (take $n_{iter} = 1024$), the chosen extreme value copula (asymmetric negative logistic model), the missing mechanism (described by $C_{(V_0,V_1)}$ and $p_0 = p_1 = 0.9$), and $\lambda$ (noted $\texttt{w}$). We can write the following lines of code:
@@ -332,7 +332,7 @@ For a given $\lambda \in ]0,1[$, we now want to estimate a $\lambda$-madogram wi
   u = np.array([0.9, 0.9])
   n_iter, P, w = 256, [[u[0], copula_miss._c(
       u)], [copula_miss._c(u), u[1]]], np.array([0.5,0.5])
-  monte = monte_carlo.MonteCarlo(n_iter=n_iter, n_sample=n_sample,
+  monte = monte_carlo.MonteCarlo(n_iter=n_iter, n_samples=n_samples,
                                  copula=copula, copula_miss=copula_miss,
                                  weight=w, matp=P)
 ```
