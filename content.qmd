@@ -45,7 +45,7 @@ Software implementation of copulae has been extensively studied in $\textsf{R}$,
 
 Through this paper we adopt the following notational conventions: all the indices will start at $0$ as in $\textsf{Python}$. Consider $(\Omega, \mathcal{A}, \mathbb{P})$ a probability space and let $\textbf{X} = (X_0, \dots, X_{d-1})$ be a $d$-dimensional random vector with values in $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$, with $d \geq 2$ and $\mathcal{B}(\mathbb{R}^d)$ the Borel $\sigma$-algebra of $\mathbb{R}^d$. This random vector has a joint distribution $F$ with copula $C$ and its margins are denoted by $F_j(x) = \mathbb{P}\{X_j \leq x\}$ for all $x \in \mathbb{R}$ and $j \in \{0, \dots, d-1\}$. Denote by $\textbf{U} = (U_0, \dots, U_{d-1})$ a $d$ random vector with copula $C$ and uniform margins. All bold letters $\textbf{x}$ will denote a vector of $\mathbb{R}^d$.
 
-The $\textsf{clayton}$ package, whose Python code can be found in this [GitHub repository](https://github.com/Aleboul/clayton), uses object-oriented features of the Python language. The package contains classes for Archimedean, elliptical, and extreme value copulae. In @sec-classes, we briefly describe the classes defined in the package. @sec-rng presents methods for generating random vectors. In @sec-pairwise, we apply the $\textsf{clayton}$ package to model pairwise dependence between maxima. @sec-discussion discusses potential improvements to the package and provides concluding remarks. Sections from @sec-bv_arch to @sec-mv_ellip define and illustrate all the parametric copula models implemented in the package.
+The $\textsf{clayton}$ package, whose Python code can be found in this [https://github.com/Aleboul/clayton](https://github.com/Aleboul/clayton), uses object-oriented features of the Python language. The package contains classes for Archimedean, elliptical, and extreme value copulae. In @sec-classes, we briefly describe the classes defined in the package. @sec-rng presents methods for generating random vectors. In @sec-pairwise, we apply the $\textsf{clayton}$ package to model pairwise dependence between maxima. @sec-discussion discusses potential improvements to the package and provides concluding remarks. Sections from @sec-bv_arch to @sec-mv_ellip define and illustrate all the parametric copula models implemented in the package.
 
 # Classes {#sec-classes}
 
@@ -97,7 +97,7 @@ In the multivariate framework, the logistic copula (or Gumbel, see @1960), the a
 
 # Random number generator {#sec-rng}
 
-Let $\varphi$ be a generator that is a strictly decreasing, convex function from $[0,1]$ to $[0, \infty]$ such that $\varphi(1) = 0$ and $\varphi(0) = \infty$. We denote the generalized inverse of $\varphi$ by $\varphi^\leftarrow$. Consider the following equation:
+We propose a $\textsf{Python}$-based implementation for generating random numbers from a wide variety of copulae. The $\textsf{clayton}$ package requires a few external libraries that are commonly used in scientific computing in $\textsf{Python}$.
 
 - `numpy` version 1.6.1 or newer. This is the fundamental package for scientific computing, it contains linear algebra functions and matrix / vector objects (@harris2020array).
 - `scipy` version 1.7.1 or newer. A library of open-source software for mathematics, science and engineering (@virtanen2020scipy).
@@ -296,7 +296,7 @@ Benefiting from generating data with $\textsf{clayton}$ we are thus able, with M
 
 ```{python}
   def gauss_function(x, x0, sigma):
-      return np.sqrt( 1 / (2*np.pi * sigma**2 ) ) * np.exp(- ( x - x0) ** 2 / (2 * sigma **2) )
+      return np.sqrt(1. / (2*np.pi * sigma**2)) * np.exp(-(x - x0) ** 2 / (2 * sigma**2))
   n_sample = 512
   theta, psi1, psi2 = 10, 0.1, 1.0
 ```
