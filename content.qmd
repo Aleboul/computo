@@ -22,7 +22,7 @@ citation:
 bibliography: references.bib
 github-user: computorg
 repo: "template-computo-quarto"
-draft: true # set to false once the build is running
+draft: false # set to false once the build is running
 published: false # will be set to true once accepted
 format:
   computo-html: default
