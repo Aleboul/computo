@@ -8,9 +8,9 @@ author:
     email: aboulin@unice.fr
     affiliations:
       - name: Université Côte d'Azur, CNRS, LJAD, France
-      	url: https://univ-cotedazur.fr/
+      	affiliation-url: https://univ-cotedazur.fr/
       - name: Inria, Lemon
-      	url: https://www.inria.fr/fr/lemon
+      	affiliation-url: https://www.inria.fr/fr/lemon
 date: last-modified
 description: |
   The package $\textsf{clayton}$ is designed to be intuitive, user-friendly, and efficient. It offers a wide range of copula models, including Archimedean, Elliptical, and Extreme. The package is implemented in pure $\textsf{Python}$, making it easy to install and use.
