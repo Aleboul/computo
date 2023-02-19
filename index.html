@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Alexis Boulin">
-<meta name="dcterms.date" content="2023-02-12">
+<meta name="dcterms.date" content="2023-02-19">
 <meta name="keywords" content="Copulae, Random number generation">
 <meta name="description" content="The package \textsf{clayton} is designed to be intuitive, user-friendly, and efficient. It offers a wide range of copula models, including Archimedean, Elliptical, and Extreme. The package is implemented in pure \textsf{Python}, making it easy to install and use.">
 
@@ -192,7 +192,7 @@ ISSN 2824-7795</p>
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 12, 2023</p>
+        <p class="date">February 19, 2023</p>
       </div>
     </div>
                                     
@@ -384,7 +384,7 @@ C(\textbf{u}) = \exp \left( - \ell(-\ln(u_0), \dots, -\ln(u_{d-1})) \right), \qu
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="content_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+<p><img src="content_files/figure-html/cell-5-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -448,7 +448,7 @@ C(\textbf{u}) = \exp \left( - \ell(-\ln(u_0), \dots, -\ln(u_{d-1})) \right), \qu
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="content_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+<p><img src="content_files/figure-html/cell-8-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -517,7 +517,7 @@ C(\textbf{u}) = \exp \left( - \ell(-\ln(u_0), \dots, -\ln(u_{d-1})) \right), \qu
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="content_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+<p><img src="content_files/figure-html/cell-11-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 <p>Before going into further details, we will present the missing mechanism. Let <span class="math inline">V_0</span> and <span class="math inline">V_1</span> be random variables uniformly distributed under the <span class="math inline">]0,1[</span> segment with copula <span class="math inline">C_{(V_0,V_1)}</span>. We set <span class="math inline">I_0 = 1\{{V_0 \leq p_0}\}</span> and <span class="math inline">I_1 = 1\{{V_1 \leq p_1}\}</span>. It is thus immediate that <span class="math inline">I_0 \sim \mathcal{B}(p_0)</span> and <span class="math inline">I_1 \sim \mathcal{B}(p_1)</span> and <span class="math inline">p \triangleq \mathbb{P}\{I_0 = 1, I_1 =1 \} = C_{(V_0,V_1)}(p_0, p_1)</span>. For our illustration, we will take <span class="math inline">C_{(V_0,V_1)}</span> as a copula with parameter <span class="math inline">\theta = 2.0</span> (we refer to <a href="#sec-bv_arch">Section&nbsp;6.1</a> for a definition of this copula). For this copula, it is more likely to observe a realization <span class="math inline">v_0 \geq 0.8</span> from <span class="math inline">V_0</span> if <span class="math inline">v_1 \geq 0.8</span> from <span class="math inline">V_1</span>. If we observe <span class="math inline">v_1 &lt; 0.8</span>, the realization <span class="math inline">v_0</span> is close to being independent of <span class="math inline">v_1</span>. In climate studies, extreme events could damage the recording instrument in the surrounding regions where they occur, thus the missingness of one variable may depend on others. We initialize the copula <span class="math inline">C_{(V_0,V_1)}</span> with the following line:</p>
@@ -581,7 +581,7 @@ C(\textbf{u}) = \exp \left( - \ell(-\ln(u_0), \dots, -\ln(u_{d-1})) \right), \qu
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    plt.plot(x,gauss, color<span class="op">=</span><span class="st">'#6F6F6F'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="content_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+<p><img src="content_files/figure-html/cell-16-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -876,7 +876,7 @@ A(\textbf{w}) =&amp; \alpha_1 w_1 + \psi_1 w_2 + \phi_1 w_3 + \left( (\alpha_2 w
   author = {Alexis Boulin},
   title = {A {Python} {Package} for {Sampling} from {Copulae:} Clayton},
   journal = {Computo},
-  date = {2023-02-12},
+  date = {2023-02-19},
   url = {https://computo.sfds.asso.fr/template-computo-quarto},
   doi = {xxxx},
   langid = {en},
