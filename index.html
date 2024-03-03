@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Alexis Boulin">
-<meta name="dcterms.date" content="2024-02-25">
+<meta name="dcterms.date" content="2024-03-03">
 <meta name="keywords" content="Copulae, Random number generation">
 <meta name="description" content="The package \textsf{clayton} is designed to be intuitive, user-friendly, and efficient. It offers a wide range of copula models, including Archimedean, Elliptical, and Extreme. The package is implemented in pure \textsf{Python}, making it easy to install and use.">
 
@@ -202,7 +202,7 @@ ISSN 2824-7795</p>
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 25, 2024</p>
+        <p class="date">March 3, 2024</p>
       </div>
     </div>
                                     
@@ -336,7 +336,7 @@ C(\textbf{u}) = \exp \left( - \ell(-\ln(u_0), \dots, -\ln(u_{d-1})) \right), \qu
 <p>The <span class="math inline">\textsf{clayton}</span> package provides two methods for generating random vectors: <span class="math inline">\texttt{sample\_unimargin}</span> and <span class="math inline">\texttt{sample}</span>. The first method generates a sample where the margins are uniformly distributed on the unit interval <span class="math inline">[0,1]</span>, while the second method generates a sample from the chosen margins.</p>
 <p>In <a href="#sec-biv_case" class="quarto-xref">Section&nbsp;3.1</a>, we present an algorithm that uses the conditioning method to sample from a copula. This method is very general and can be used for any copula that is sufficiently smooth (see <a href="#eq-cond_sim" class="quarto-xref">Equation&nbsp;5</a> and <a href="#eq-cond_dist_mv" class="quarto-xref">Equation&nbsp;8</a> below). However, the practical infeasibility of the algorithm in dimensions higher than <span class="math inline">2</span> and the computational intensity of numerical inversion call for more efficient ways to sample in higher dimensions. The purpose of <a href="#sec-mv_case" class="quarto-xref">Section&nbsp;3.2</a> is to present such methods and to provide details on the methods used in the <span class="math inline">\textsf{clayton}</span> package. In each section, we provide examples of code to illustrate how to instantiate a copula and how to sample with <span class="math inline">\textsf{clayton}</span>.</p>
 <p>In the following sections, we will use <span class="math inline">\textsf{Python}</span> code that assumes that the following packages have been loaded:</p>
-<div id="cb8e2771" class="cell" data-execution_count="1">
+<div id="681cad75" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> clayton</span>
@@ -377,7 +377,7 @@ Figure&nbsp;2: Conditional sampling from copula
 <p>where <span class="math inline">t = \ln(u_1) / \ln(u_0u_1) \in (0,1)</span> and <span class="math inline">\mu(t) = A(t) - tA'(t)</span>.</p>
 <p>We now have all the necessary theoretical tools to give details on how the <span class="math inline">\textsf{clayton}</span> package is designed. The file <span class="math inline">\texttt{base.py}</span> contains the <span class="math inline">\textbf{Multivariate}</span> class and the <span class="math inline">\texttt{sample}</span> method to generate random numbers from <span class="math inline">\textbf{X}</span> with copula <span class="math inline">C</span>. To do so, we use the inversion method that is to sample from <span class="math inline">\textbf{U}</span> using algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a> and we compose the corresponding uniform margins by <span class="math inline">F_j^\leftarrow</span>. indicates that the sole knowledge of <span class="math inline">A</span> and <span class="math inline">\varphi</span> and their respective derivatives are needed in order to perform the sixth step of algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a>. For that purpose, <span class="math inline">\texttt{cond\_sim}</span> method located inside <span class="math inline">\textbf{Archimedean}</span> and <span class="math inline">\textbf{Extreme}</span> classes performs algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a>. Then each child of the bivariate <span class="math inline">\textbf{Archimedean}</span> (resp. <span class="math inline">\textbf{Extreme}</span>) class is thus defined by its generator <span class="math inline">\varphi</span> (resp. <span class="math inline">A</span>), it’s derivative <span class="math inline">\varphi'</span> (resp. <span class="math inline">A'</span>) and it’s inverse <span class="math inline">\varphi^\leftarrow</span> as emphasized in green in <a href="#fig-diagram" class="quarto-xref">Figure&nbsp;1</a>. Namely, we perform algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a> for the <span class="math inline">\textbf{Archimedean}</span> subclasses <span class="math inline">\texttt{Frank}</span>, <span class="math inline">\texttt{AMH}</span>, <span class="math inline">\texttt{Clayton}</span> (when <span class="math inline">\theta &lt; 0</span> for the previous three), <span class="math inline">\texttt{Nelsen\_9}</span>, <span class="math inline">\texttt{Nelsen\_10}</span>, <span class="math inline">\texttt{Nelsen\_11}</span>, <span class="math inline">\texttt{Nelsen\_12}</span>, <span class="math inline">\texttt{Nelsen\_13}</span>, <span class="math inline">\texttt{Nelsen\_14}</span>, <span class="math inline">\texttt{Nelsen\_15}</span> and <span class="math inline">\texttt{Nelsen\_22}</span>. For the <span class="math inline">\textbf{Extreme}</span> class, such algorithm is performed for the <span class="math inline">\texttt{AsyNegLog}</span> and <span class="math inline">\texttt{AsyMix}</span>. For other models, faster algorithms are known and thus implemented, we refer to <a href="#sec-mv_case" class="quarto-xref">Section&nbsp;3.2</a> for details.</p>
 <p>The following code illustrates the random vector generation for a bivariate Archimedean copula. By defining the parameter of the copula and the sample’s length, the constructor for this copula is available and can be called using the <span class="math inline">\texttt{Clayton}</span> method, such as:</p>
-<div id="f88df362" class="cell" data-execution_count="2">
+<div id="2d84233a" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  n_samples, theta <span class="op">=</span> <span class="dv">1024</span>, <span class="op">-</span><span class="fl">0.5</span></span>
@@ -385,14 +385,14 @@ Figure&nbsp;2: Conditional sampling from copula
 </details>
 </div>
 <p>To obtain a sample with uniform margins and a Clayton copula, we can use the <span class="math inline">\texttt{sample\_unimargin}</span> method, as follows:</p>
-<div id="5c8667d9" class="cell" data-execution_count="3">
+<div id="576c90a3" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  sample <span class="op">=</span> copula.sample_unimargin()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Here, the <span class="math inline">\texttt{sample}</span> object is a <span class="math inline">\textsf{numpy}</span> array with <span class="math inline">2</span> columns and <span class="math inline">1024</span> rows, where each row contains a realization from a Clayton copula (see below)</p>
-<div id="0c7967f4" class="cell" data-execution_count="4">
+<div id="f65ca471" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -446,7 +446,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 <p>For the extreme value case, algorithms have been proposed, as in <span class="citation" data-cites="stephenson2003simulating">A. Stephenson (<a href="#ref-stephenson2003simulating" role="doc-biblioref">2003</a>)</span> (see Algorithms 2.1 and 2.2), who proposes sampling methods for the Gumbel and the asymmetric logistic model. These algorithms are implemented in the <span class="math inline">\textsf{clayton}</span> package. Note that these algorithms are model-specific, thus the <span class="math inline">\texttt{sample\_unimargin}</span> method is exceptionally located in the corresponding child of the multivariate <span class="math inline">\textbf{Extreme}</span> class. Another procedure designed by <span class="citation" data-cites="10.1093/biomet/asw008">Dombry, Engelke, and Oesting (<a href="#ref-10.1093/biomet/asw008" role="doc-biblioref">2016</a>)</span> to sample from multivariate extreme value models using extremal functions (see Algorithm 2 in <span class="citation" data-cites="10.1093/biomet/asw008">Dombry, Engelke, and Oesting (<a href="#ref-10.1093/biomet/asw008" role="doc-biblioref">2016</a>)</span>) is also of prime interest. For the implemented models using this algorithm, namely <span class="math inline">\textbf{Hüsler-Reiss}</span>, <span class="math inline">\textbf{tEV}</span>, <span class="math inline">\textbf{Bilogistic}</span> and <span class="math inline">\textbf{Dirichlet}</span> models, a method called <span class="math inline">\texttt{\_rextfunc}</span> is located inside each classes which allows to generate an observation from the according law of the extremal function.</p>
 <p>Samples from the Gaussian and Student copula are directly given by Algorithm 5.9 and 5.10 respectively of <span class="citation" data-cites="quantrisk">Alexander J. McNeil (<a href="#ref-quantrisk" role="doc-biblioref">2005</a>)</span>. As each algorithm is model specific, the <span class="math inline">\texttt{sample\_unimargin}</span> method is located inside the <span class="math inline">\textbf{Gaussian}</span> and <span class="math inline">\textbf{Student}</span> classes.</p>
 <p>We present how to construct a multivariate Archimedean copula and to generate random vectors from this model. Introducing the parameters of the copula, we appeal the following lines to construct our copula object:</p>
-<div id="b6406eaf" class="cell" data-execution_count="5">
+<div id="7c327602" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d, theta, n_samples <span class="op">=</span> <span class="dv">3</span>, <span class="fl">2.0</span>, <span class="dv">1024</span></span>
@@ -454,14 +454,14 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>We now call the <span class="math inline">\texttt{sample\_unimargin}</span> method to obtain randomly generated vectors.</p>
-<div id="84cc7d02" class="cell" data-execution_count="6">
+<div id="9602e76c" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> copula.sample_unimargin()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>We thus represent in three dimensions these realizations below.</p>
-<div id="0db8e40e" class="cell" data-execution_count="7">
+<div id="04b39bc2" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  fig <span class="op">=</span> plt.figure()</span>
@@ -518,7 +518,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 <section id="sec-num" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="sec-num"><span class="header-section-number">4.2</span> Numerical results</h2>
 <p>Benefiting from generating data with <span class="math inline">\textsf{clayton}</span> we are thus able, with Monte Carlo simulation, to assess theoretical results given by <a href="#thm-line" class="quarto-xref">Theorem&nbsp;1</a> in a finite sample setting. For that purpose, we implement a <span class="math inline">\textsf{MonteCarlo}</span> class (in <span class="math inline">\texttt{monte\_carlo.py}</span> file) which contains some methods to perform some Monte Carlo iterations for a given extreme value copula. Now, we set up parameters to sample our bivariate dataset. For this subsection, we choose the asymmetric negative logistic model (see <a href="#sec-bv_ext" class="quarto-xref">Section&nbsp;6.2</a> for a definition) with parameters <span class="math inline">\theta = 10, \psi_1 = 0.1, \psi_2 = 1.0</span> and we define the following function:</p>
-<div id="5245a834" class="cell" data-execution_count="8">
+<div id="1abd9de4" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> gauss_function(x, x0, sigma):</span>
@@ -528,7 +528,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>We choose the standard normal and exponential as margins. To simulate this sample, the following lines should be typed:</p>
-<div id="e9b91b8d" class="cell" data-execution_count="9">
+<div id="693cb64c" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  copula <span class="op">=</span> evd.AsyNegLog(theta<span class="op">=</span>theta, psi1<span class="op">=</span>psi1,</span>
@@ -537,7 +537,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>The <span class="math inline">1024 \times 2</span> array <span class="math inline">\texttt{sample}</span> contains <span class="math inline">1024</span> realization of the <span class="math inline">\textbf{asymmetric negative logistic}</span> model where the first column is distributed according to a standard normal random variable and the second column as a standard exponential. This distribution is depicted below. To obtain it, one needs the following lines of command:</p>
-<div id="41a23460" class="cell" data-execution_count="10">
+<div id="f31fd16a" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -556,14 +556,14 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </div>
 </div>
 <p>Before going into further details, we will present the missing mechanism. Let <span class="math inline">V_0</span> and <span class="math inline">V_1</span> be random variables uniformly distributed under the <span class="math inline">]0,1[</span> segment with copula <span class="math inline">C_{(V_0,V_1)}</span>. We set <span class="math inline">I_0 = 1\{{V_0 \leq p_0}\}</span> and <span class="math inline">I_1 = 1\{{V_1 \leq p_1}\}</span>. It is thus immediate that <span class="math inline">I_0 \sim \mathcal{B}(p_0)</span> and <span class="math inline">I_1 \sim \mathcal{B}(p_1)</span> and <span class="math inline">p \triangleq \mathbb{P}\{I_0 = 1, I_1 =1 \} = C_{(V_0,V_1)}(p_0, p_1)</span>. For our illustration, we will take <span class="math inline">C_{(V_0,V_1)}</span> as a copula with parameter <span class="math inline">\theta = 2.0</span> (we refer to <a href="#sec-bv_arch" class="quarto-xref">Section&nbsp;6.1</a> for a definition of this copula). For this copula, it is more likely to observe a realization <span class="math inline">v_0 \geq 0.8</span> from <span class="math inline">V_0</span> if <span class="math inline">v_1 \geq 0.8</span> from <span class="math inline">V_1</span>. If we observe <span class="math inline">v_1 &lt; 0.8</span>, the realization <span class="math inline">v_0</span> is close to being independent of <span class="math inline">v_1</span>. In climate studies, extreme events could damage the recording instrument in the surrounding regions where they occur, thus the missingness of one variable may depend on others. We initialize the copula <span class="math inline">C_{(V_0,V_1)}</span> with the following line:</p>
-<div id="d7c7d539" class="cell" data-execution_count="11">
+<div id="0645919a" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  copula_miss <span class="op">=</span> archimedean.Joe(theta<span class="op">=</span><span class="fl">2.0</span>, n_samples<span class="op">=</span>n_samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>For a given <span class="math inline">\lambda \in ]0,1[</span>, we now want to estimate a <span class="math inline">\lambda</span>-madogram with a sample from the asymmetric negative logistic model, where some observations are missing due to the missing mechanism described above. We will repeat this step several times to compute an empirical counterpart of the asymptotic variance. The object has been designed for this purpose: we specify the number of iterations <span class="math inline">n_{iter}</span> (take <span class="math inline">n_{iter} = 1024</span>), the chosen extreme value copula (asymmetric negative logistic model), the missing mechanism (described by <span class="math inline">C_{(V_0,V_1)}</span> and <span class="math inline">p_0 = p_1 = 0.9</span>), and <span class="math inline">\lambda</span> (noted <span class="math inline">\texttt{w}</span>). We can write the following lines of code:</p>
-<div id="d222e85d" class="cell" data-execution_count="12">
+<div id="408e82b0" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  u <span class="op">=</span> np.array([<span class="fl">0.9</span>, <span class="fl">0.9</span>])</span>
@@ -575,7 +575,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>The <span class="math inline">\texttt{MonteCarlo}</span> object is thus initialized with all parameters needed. We may use the <span class="math inline">\texttt{simu}</span> method to generate a <span class="math inline">\texttt{DataFrame}</span> (a <span class="math inline">\texttt{pandas}</span> object) composed out <span class="math inline">1024</span> rows and <span class="math inline">3</span> columns. Each row contains an estimate of the <span class="math inline">\lambda</span>-madogram, <span class="math inline">\hat{\nu}_n^{\mathcal{H}*}</span> in <a href="#thm-line" class="quarto-xref">Theorem&nbsp;1</a> (<span class="math inline">\texttt{var\_mado}</span>), the sample length <span class="math inline">n</span> (<span class="math inline">\texttt{n}</span>) and the normalized estimation error (<span class="math inline">\texttt{scaled}</span>). We thus call the <span class="math inline">\texttt{simu}</span> method.</p>
-<div id="38fba2fd" class="cell" data-execution_count="13">
+<div id="e8d23433" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  df_wmado <span class="op">=</span> monte.finite_sample(inv_cdf<span class="op">=</span>[norm.ppf, expon.ppf], corr<span class="op">=</span><span class="va">True</span>)</span>
@@ -591,7 +591,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </div>
 </div>
 <p>The argument <span class="math inline">\texttt{corr=True}</span> specifies that we compute the corrected estimator, <span class="math inline">\hat{\nu}_n^{\mathcal{H}*}</span> in <a href="#thm-line" class="quarto-xref">Theorem&nbsp;1</a>. Now, using the <span class="math inline">\texttt{var\_mado}</span> method defined inside in the <strong>Extreme</strong> class, we obtain the asymptotic variance for the given model and parameters from the missing mechanism. We obtain this quantity as follows</p>
-<div id="5ddb445c" class="cell" data-execution_count="14">
+<div id="2b3e6137" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>  var_mado <span class="op">=</span> copula.var_mado(w, jointp<span class="op">=</span>copula_miss._c(u), matp<span class="op">=</span>P, corr<span class="op">=</span><span class="va">True</span>)</span>
@@ -604,7 +604,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </div>
 </div>
 <p>We propose here to check numerically the asymptotic normality with variance <span class="math inline">\mathcal{S}^{\mathcal{H}*}</span> of the normalized estimation error of the corrected estimator. We have all data in hand and the asymptotic variance was computed by lines above. We thus write:</p>
-<div id="dcb1b15d" class="cell" data-execution_count="15">
+<div id="787dcd93" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> np.sqrt(var_mado)</span>
@@ -919,7 +919,7 @@ A(\textbf{w}) =&amp; \alpha_1 w_1 + \psi_1 w_2 + \phi_1 w_3 + \left( (\alpha_2 w
   author = {Boulin, Alexis},
   title = {A {Python} {Package} for {Sampling} from {Copulae:} Clayton},
   journal = {Computo},
-  date = {2024-02-25},
+  date = {2024-03-03},
   url = {https://computo.sfds.asso.fr/template-computo-quarto},
   doi = {xxxx},
   langid = {en},
@@ -938,7 +938,7 @@ A(\textbf{w}) =&amp; \alpha_1 w_1 + \psi_1 w_2 + \phi_1 w_3 + \left( (\alpha_2 w
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-boulin2024" class="csl-entry quarto-appendix-citeas" role="listitem">
 Boulin, Alexis. 2024. <span>“A Python Package for Sampling from Copulae:
-Clayton.”</span> <em>Computo</em>, February. <a href="https://doi.org/xxxx">https://doi.org/xxxx</a>.
+Clayton.”</span> <em>Computo</em>, March. <a href="https://doi.org/xxxx">https://doi.org/xxxx</a>.
 </div></div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
