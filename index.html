@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.20">
+<meta name="generator" content="quarto-1.11.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Alexis Boulin">
-<meta name="dcterms.date" content="2026-11-01">
+<meta name="dcterms.date" content="2026-11-08">
 <meta name="keywords" content="Copulae, Random number generation">
 <meta name="description" content="The package \textsf{clayton} is designed to be intuitive, user-friendly, and efficient. It offers a wide range of copula models, including Archimedean, Elliptical, and Extreme. The package is implemented in pure \textsf{Python}, making it easy to install and use.">
 
@@ -90,14 +90,15 @@ div.csl-indent {
 <script src="content_files/libs/clipboard/clipboard.min.js"></script>
 <script src="content_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="content_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="content_files/libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="content_files/libs/quarto-html/popper.min.js"></script>
 <script src="content_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="content_files/libs/quarto-html/anchor.min.js"></script>
 <link href="content_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="content_files/libs/quarto-html/quarto-syntax-highlighting-29e00c98bbba659d91ab3844292f79dc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="content_files/libs/quarto-html/quarto-syntax-highlighting-5de16f5e46225c21e2daa90d340bf64f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="content_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="content_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="content_files/libs/bootstrap/bootstrap-962884f5e97587aef892ba93f7824eba.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="content_files/libs/bootstrap/bootstrap-e3d84f59fd934a629fb0fe6831223477.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="content_files/libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="content_files/libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <style>
@@ -184,7 +185,7 @@ window.Quarto = {
 
 </head>
 
-<body class="quarto-light"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+<body class="quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
 
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
 
@@ -192,6 +193,8 @@ window.Quarto = {
     <i class="bi bi-exclamation-triangle-fill"></i>
     <strong>Draft submission.</strong> This article has been submitted to Computo but has not been accepted or published yet.
   </div>
+  <!-- A submitted article is not citable yet: hide Quarto's "Citation" appendix -->
+  <style>#quarto-citation { display: none; }</style>
 
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
@@ -228,14 +231,18 @@ ISSN 2824-7795</p>
                     
   <div class="quarto-title-meta">
                                 
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
+    
+    
+        <div>
+      <div class="quarto-title-meta-heading">Last updated</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 1, 2026</p>
+        <p class="date">November 8, 2026</p>
       </div>
     </div>
-                                    
       
+    
+    
+    
                   
       <div>
       <div class="quarto-title-meta-heading">Keywords</div>
@@ -264,7 +271,7 @@ ISSN 2824-7795</p>
 
   </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">Contents</h2>
    
   <ul>
@@ -301,7 +308,7 @@ ISSN 2824-7795</p>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="content.pdf"><i class="bi bi-file-pdf"></i>PDF (computo)</a></li></ul></div></nav>
 </div>
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content" tabindex="-1">
 
 
 
@@ -367,7 +374,7 @@ C(\textbf{u}) = \exp \left( - \ell(-\ln(u_0), \dots, -\ln(u_{d-1})) \right), \qu
 <p>The <span class="math inline">\(\textsf{clayton}\)</span> package provides two methods for generating random vectors: <span class="math inline">\(\texttt{sample\_unimargin}\)</span> and <span class="math inline">\(\texttt{sample}\)</span>. The first method generates a sample where the margins are uniformly distributed on the unit interval <span class="math inline">\([0,1]\)</span>, while the second method generates a sample from the chosen margins.</p>
 <p>In <a href="#sec-biv_case" class="quarto-xref">Section&nbsp;3.1</a>, we present an algorithm that uses the conditioning method to sample from a copula. This method is very general and can be used for any copula that is sufficiently smooth (see <a href="#eq-cond_sim" class="quarto-xref">Equation&nbsp;5</a> and <a href="#eq-cond_dist_mv" class="quarto-xref">Equation&nbsp;8</a> below). However, the practical infeasibility of the algorithm in dimensions higher than <span class="math inline">\(2\)</span> and the computational intensity of numerical inversion call for more efficient ways to sample in higher dimensions. The purpose of <a href="#sec-mv_case" class="quarto-xref">Section&nbsp;3.2</a> is to present such methods and to provide details on the methods used in the <span class="math inline">\(\textsf{clayton}\)</span> package. In each section, we provide examples of code to illustrate how to instantiate a copula and how to sample with <span class="math inline">\(\textsf{clayton}\)</span>.</p>
 <p>In the following sections, we will use <span class="math inline">\(\textsf{Python}\)</span> code that assumes that the following packages have been loaded:</p>
-<div id="f0712215" class="cell" data-execution_count="1">
+<div id="0bdee58c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> clayton</span>
@@ -408,7 +415,7 @@ Figure&nbsp;2: Conditional sampling from copula
 <p>where <span class="math inline">\(t = \ln(u_1) / \ln(u_0u_1) \in (0,1)\)</span> and <span class="math inline">\(\mu(t) = A(t) - tA'(t)\)</span>.</p>
 <p>We now have all the necessary theoretical tools to give details on how the <span class="math inline">\(\textsf{clayton}\)</span> package is designed. The file <span class="math inline">\(\texttt{base.py}\)</span> contains the <span class="math inline">\(\textbf{Multivariate}\)</span> class and the <span class="math inline">\(\texttt{sample}\)</span> method to generate random numbers from <span class="math inline">\(\textbf{X}\)</span> with copula <span class="math inline">\(C\)</span>. To do so, we use the inversion method that is to sample from <span class="math inline">\(\textbf{U}\)</span> using algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a> and we compose the corresponding uniform margins by <span class="math inline">\(F_j^\leftarrow\)</span>. <span class="math inline">\(\eqref{eq:cond_sim}\)</span> indicates that the sole knowledge of <span class="math inline">\(A\)</span> and <span class="math inline">\(\varphi\)</span> and their respective derivatives are needed in order to perform the sixth step of algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a>. For that purpose, <span class="math inline">\(\texttt{cond\_sim}\)</span> method located inside <span class="math inline">\(\textbf{Archimedean}\)</span> and <span class="math inline">\(\textbf{Extreme}\)</span> classes performs algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a>. Then each child of the bivariate <span class="math inline">\(\textbf{Archimedean}\)</span> (resp. <span class="math inline">\(\textbf{Extreme}\)</span>) class is thus defined by its generator <span class="math inline">\(\varphi\)</span> (resp. <span class="math inline">\(A\)</span>), it’s derivative <span class="math inline">\(\varphi'\)</span> (resp. <span class="math inline">\(A'\)</span>) and it’s inverse <span class="math inline">\(\varphi^\leftarrow\)</span> as emphasized in green in <a href="#fig-diagram" class="quarto-xref">Figure&nbsp;1</a>. Namely, we perform algorithm in <a href="#fig-alg_1" class="quarto-xref">Figure&nbsp;2</a> for the <span class="math inline">\(\textbf{Archimedean}\)</span> subclasses <span class="math inline">\(\texttt{Frank}\)</span>, <span class="math inline">\(\texttt{AMH}\)</span>, <span class="math inline">\(\texttt{Clayton}\)</span> (when <span class="math inline">\(\theta &lt; 0\)</span> for the previous three), <span class="math inline">\(\texttt{Nelsen\_9}\)</span>, <span class="math inline">\(\texttt{Nelsen\_10}\)</span>, <span class="math inline">\(\texttt{Nelsen\_11}\)</span>, <span class="math inline">\(\texttt{Nelsen\_12}\)</span>, <span class="math inline">\(\texttt{Nelsen\_13}\)</span>, <span class="math inline">\(\texttt{Nelsen\_14}\)</span>, <span class="math inline">\(\texttt{Nelsen\_15}\)</span> and <span class="math inline">\(\texttt{Nelsen\_22}\)</span>. For the <span class="math inline">\(\textbf{Extreme}\)</span> class, such algorithm is performed for the <span class="math inline">\(\texttt{AsyNegLog}\)</span> and <span class="math inline">\(\texttt{AsyMix}\)</span>. For other models, faster algorithms are known and thus implemented, we refer to <a href="#sec-mv_case" class="quarto-xref">Section&nbsp;3.2</a> for details.</p>
 <p>The following code illustrates the random vector generation for a bivariate Archimedean copula. By defining the parameter of the copula and the sample’s length, the constructor for this copula is available and can be called using the <span class="math inline">\(\texttt{Clayton}\)</span> method, such as:</p>
-<div id="ecb8a0ab" class="cell" data-execution_count="2">
+<div id="1d2f3f85" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  n_samples, theta <span class="op">=</span> <span class="dv">1024</span>, <span class="op">-</span><span class="fl">0.5</span></span>
@@ -416,14 +423,14 @@ Figure&nbsp;2: Conditional sampling from copula
 </details>
 </div>
 <p>To obtain a sample with uniform margins and a Clayton copula, we can use the <span class="math inline">\(\texttt{sample\_unimargin}\)</span> method, as follows:</p>
-<div id="3cf20de4" class="cell" data-execution_count="3">
+<div id="2726efee" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  sample <span class="op">=</span> copula.sample_unimargin()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Here, the <span class="math inline">\(\texttt{sample}\)</span> object is a <span class="math inline">\(\textsf{numpy}\)</span> array with <span class="math inline">\(2\)</span> columns and <span class="math inline">\(1024\)</span> rows, where each row contains a realization from a Clayton copula (see below)</p>
-<div id="381a2982" class="cell" data-execution_count="4">
+<div id="53848f15" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -477,7 +484,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 <p>For the extreme value case, algorithms have been proposed, as in <span class="citation" data-cites="stephenson2003simulating">Stephenson (<a href="#ref-stephenson2003simulating" role="doc-biblioref">2003</a>)</span> (see Algorithms 2.1 and 2.2), who proposes sampling methods for the Gumbel and the asymmetric logistic model. These algorithms are implemented in the <span class="math inline">\(\textsf{clayton}\)</span> package. Note that these algorithms are model-specific, thus the <span class="math inline">\(\texttt{sample\_unimargin}\)</span> method is exceptionally located in the corresponding child of the multivariate <span class="math inline">\(\textbf{Extreme}\)</span> class. Another procedure designed by <span class="citation" data-cites="10.1093/biomet/asw008">Dombry et al. (<a href="#ref-10.1093/biomet/asw008" role="doc-biblioref">2016</a>)</span> to sample from multivariate extreme value models using extremal functions (see Algorithm 2 in <span class="citation" data-cites="10.1093/biomet/asw008">Dombry et al. (<a href="#ref-10.1093/biomet/asw008" role="doc-biblioref">2016</a>)</span>) is also of prime interest. For the implemented models using this algorithm, namely <span class="math inline">\(\textbf{Hüsler-Reiss}\)</span>, <span class="math inline">\(\textbf{tEV}\)</span>, <span class="math inline">\(\textbf{Bilogistic}\)</span> and <span class="math inline">\(\textbf{Dirichlet}\)</span> models, a method called <span class="math inline">\(\texttt{\_rextfunc}\)</span> is located inside each classes which allows to generate an observation from the according law of the extremal function.</p>
 <p>Samples from the Gaussian and Student copula are directly given by Algorithm 5.9 and 5.10 respectively of <span class="citation" data-cites="quantrisk">Alexander J. McNeil (<a href="#ref-quantrisk" role="doc-biblioref">2005</a>)</span>. As each algorithm is model specific, the <span class="math inline">\(\texttt{sample\_unimargin}\)</span> method is located inside the <span class="math inline">\(\textbf{Gaussian}\)</span> and <span class="math inline">\(\textbf{Student}\)</span> classes.</p>
 <p>We present how to construct a multivariate Archimedean copula and to generate random vectors from this model. Introducing the parameters of the copula, we appeal the following lines to construct our copula object:</p>
-<div id="f7e86bae" class="cell" data-execution_count="5">
+<div id="5e52a9e4" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d, theta, n_samples <span class="op">=</span> <span class="dv">3</span>, <span class="fl">2.0</span>, <span class="dv">1024</span></span>
@@ -485,14 +492,14 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>We now call the <span class="math inline">\(\texttt{sample\_unimargin}\)</span> method to obtain randomly generated vectors.</p>
-<div id="9a0d224b" class="cell" data-execution_count="6">
+<div id="2c86e2d2" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> copula.sample_unimargin()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>We thus represent in three dimensions these realizations below.</p>
-<div id="96c4fde1" class="cell" data-execution_count="7">
+<div id="04c00942" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  fig <span class="op">=</span> plt.figure()</span>
@@ -549,7 +556,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 <section id="sec-num" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="sec-num"><span class="header-section-number">4.2</span> Numerical results</h2>
 <p>Benefiting from generating data with <span class="math inline">\(\textsf{clayton}\)</span> we are thus able, with Monte Carlo simulation, to assess theoretical results given by <a href="#thm-line" class="quarto-xref">Theorem&nbsp;1</a> in a finite sample setting. For that purpose, we implement a <span class="math inline">\(\textsf{MonteCarlo}\)</span> class (in <span class="math inline">\(\texttt{monte\_carlo.py}\)</span> file) which contains some methods to perform some Monte Carlo iterations for a given extreme value copula. Now, we set up parameters to sample our bivariate dataset. For this subsection, we choose the asymmetric negative logistic model (see <a href="#sec-bv_ext" class="quarto-xref">Section&nbsp;6.2</a> for a definition) with parameters <span class="math inline">\(\theta = 10, \psi_1 = 0.1, \psi_2 = 1.0\)</span> and we define the following function:</p>
-<div id="e3c6702f" class="cell" data-execution_count="8">
+<div id="eaf2e550" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> gauss_function(x, x0, sigma):</span>
@@ -559,7 +566,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>We choose the standard normal and exponential as margins. To simulate this sample, the following lines should be typed:</p>
-<div id="82f25dda" class="cell" data-execution_count="9">
+<div id="5c2353db" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  copula <span class="op">=</span> evd.AsyNegLog(theta<span class="op">=</span>theta, psi1<span class="op">=</span>psi1,</span>
@@ -568,7 +575,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>The <span class="math inline">\(1024 \times 2\)</span> array <span class="math inline">\(\texttt{sample}\)</span> contains <span class="math inline">\(1024\)</span> realization of the <span class="math inline">\(\textbf{asymmetric negative logistic}\)</span> model where the first column is distributed according to a standard normal random variable and the second column as a standard exponential. This distribution is depicted below. To obtain it, one needs the following lines of command:</p>
-<div id="a97ae137" class="cell" data-execution_count="10">
+<div id="7a78a53b" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -587,14 +594,14 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </div>
 </div>
 <p>Before going into further details, we will present the missing mechanism. Let <span class="math inline">\(V_0\)</span> and <span class="math inline">\(V_1\)</span> be random variables uniformly distributed under the <span class="math inline">\(]0,1[\)</span> segment with copula <span class="math inline">\(C_{(V_0,V_1)}\)</span>. We set <span class="math inline">\(I_0 = 1\{{V_0 \leq p_0}\}\)</span> and <span class="math inline">\(I_1 = 1\{{V_1 \leq p_1}\}\)</span>. It is thus immediate that <span class="math inline">\(I_0 \sim \mathcal{B}(p_0)\)</span> and <span class="math inline">\(I_1 \sim \mathcal{B}(p_1)\)</span> and <span class="math inline">\(p \triangleq \mathbb{P}\{I_0 = 1, I_1 =1 \} = C_{(V_0,V_1)}(p_0, p_1)\)</span>. For our illustration, we will take <span class="math inline">\(C_{(V_0,V_1)}\)</span> as a copula with parameter <span class="math inline">\(\theta = 2.0\)</span> (we refer to <a href="#sec-bv_arch" class="quarto-xref">Section&nbsp;6.1</a> for a definition of this copula). For this copula, it is more likely to observe a realization <span class="math inline">\(v_0 \geq 0.8\)</span> from <span class="math inline">\(V_0\)</span> if <span class="math inline">\(v_1 \geq 0.8\)</span> from <span class="math inline">\(V_1\)</span>. If we observe <span class="math inline">\(v_1 &lt; 0.8\)</span>, the realization <span class="math inline">\(v_0\)</span> is close to being independent of <span class="math inline">\(v_1\)</span>. In climate studies, extreme events could damage the recording instrument in the surrounding regions where they occur, thus the missingness of one variable may depend on others. We initialize the copula <span class="math inline">\(C_{(V_0,V_1)}\)</span> with the following line:</p>
-<div id="6795e13d" class="cell" data-execution_count="11">
+<div id="df9ebae7" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  copula_miss <span class="op">=</span> archimedean.Joe(theta<span class="op">=</span><span class="fl">2.0</span>, n_samples<span class="op">=</span>n_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>For a given <span class="math inline">\(\lambda \in ]0,1[\)</span>, we now want to estimate a <span class="math inline">\(\lambda\)</span>-madogram with a sample from the asymmetric negative logistic model, where some observations are missing due to the missing mechanism described above. We will repeat this step several times to compute an empirical counterpart of the asymptotic variance. The object has been designed for this purpose: we specify the number of iterations <span class="math inline">\(n_{iter}\)</span> (take <span class="math inline">\(n_{iter} = 1024\)</span>), the chosen extreme value copula (asymmetric negative logistic model), the missing mechanism (described by <span class="math inline">\(C_{(V_0,V_1)}\)</span> and <span class="math inline">\(p_0 = p_1 = 0.9\)</span>), and <span class="math inline">\(\lambda\)</span> (noted <span class="math inline">\(\texttt{w}\)</span>). We can write the following lines of code:</p>
-<div id="6faac042" class="cell" data-execution_count="12">
+<div id="f1712129" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  u <span class="op">=</span> np.array([<span class="fl">0.9</span>, <span class="fl">0.9</span>])</span>
@@ -606,7 +613,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </details>
 </div>
 <p>The <span class="math inline">\(\texttt{MonteCarlo}\)</span> object is thus initialized with all parameters needed. We may use the <span class="math inline">\(\texttt{simu}\)</span> method to generate a <span class="math inline">\(\texttt{DataFrame}\)</span> (a <span class="math inline">\(\texttt{pandas}\)</span> object) composed out <span class="math inline">\(1024\)</span> rows and <span class="math inline">\(3\)</span> columns. Each row contains an estimate of the <span class="math inline">\(\lambda\)</span>-madogram, <span class="math inline">\(\hat{\nu}_n^{\mathcal{H}*}\)</span> in <a href="#thm-line" class="quarto-xref">Theorem&nbsp;1</a> (<span class="math inline">\(\texttt{var\_mado}\)</span>), the sample length <span class="math inline">\(n\)</span> (<span class="math inline">\(\texttt{n}\)</span>) and the normalized estimation error (<span class="math inline">\(\texttt{scaled}\)</span>). We thus call the <span class="math inline">\(\texttt{simu}\)</span> method.</p>
-<div id="c0682b05" class="cell" data-execution_count="13">
+<div id="126b9cc0" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  df_wmado <span class="op">=</span> monte.finite_sample(inv_cdf<span class="op">=</span>[norm.ppf, expon.ppf], corr<span class="op">=</span><span class="va">True</span>)</span>
@@ -622,7 +629,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </div>
 </div>
 <p>The argument <span class="math inline">\(\texttt{corr=True}\)</span> specifies that we compute the corrected estimator, <span class="math inline">\(\hat{\nu}_n^{\mathcal{H}*}\)</span> in <a href="#thm-line" class="quarto-xref">Theorem&nbsp;1</a>. Now, using the <span class="math inline">\(\texttt{var\_mado}\)</span> method defined inside in the <strong>Extreme</strong> class, we obtain the asymptotic variance for the given model and parameters from the missing mechanism. We obtain this quantity as follows</p>
-<div id="66b99c14" class="cell" data-execution_count="14">
+<div id="fffe2165" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>  var_mado <span class="op">=</span> copula.var_mado(w, jointp<span class="op">=</span>copula_miss._c(u), matp<span class="op">=</span>P, corr<span class="op">=</span><span class="va">True</span>)</span>
@@ -635,7 +642,7 @@ Figure&nbsp;3: Sampling from Archimedean copula using frailty distribution
 </div>
 </div>
 <p>We propose here to check numerically the asymptotic normality with variance <span class="math inline">\(\mathcal{S}^{\mathcal{H}*}\)</span> of the normalized estimation error of the corrected estimator. We have all data in hand and the asymptotic variance was computed by lines above. We thus write:</p>
-<div id="66986c77" class="cell" data-execution_count="15">
+<div id="d73c0fa3" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Hide/Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> np.sqrt(var_mado)</span>
@@ -946,11 +953,11 @@ A(\textbf{w}) =&amp; \alpha_1 w_1 + \psi_1 w_2 + \phi_1 w_3 + \left( (\alpha_2 w
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{boulin2026,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><div class="code-copy-outer-scaffold"><pre class="sourceCode quarto-appendix-bibtex code-with-copy"><code class="sourceCode bibtex">@article{boulin2026,
   author = {Boulin, Alexis},
   title = {A {Python} {Package} for {Sampling} from {Copulae:} Clayton},
   journal = {Computo},
-  date = {2026-11-01},
+  date = {2026-11-08},
   url = {https://computo.sfds.asso.fr/template-computo-quarto},
   doi = {xxxx},
   langid = {en},
@@ -967,9 +974,9 @@ A(\textbf{w}) =&amp; \alpha_1 w_1 + \psi_1 w_2 + \phi_1 w_3 + \left( (\alpha_2 w
     practitioners working with copulae in \$\textbackslash
     textsf\{Python\}\$.}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-boulin2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+</code></pre><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-boulin2026" class="csl-entry quarto-appendix-citeas" role="listitem">
 Boulin, Alexis. 2026. <span>“A Python Package for Sampling from Copulae:
-Clayton.”</span> <em>Computo</em>, accepted, November 1. <a href="https://doi.org/xxxx">https://doi.org/xxxx</a>.
+Clayton.”</span> <em>Computo</em>, November 8. <a href="https://doi.org/xxxx">https://doi.org/xxxx</a>.
 </div></div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1097,11 +1104,30 @@ Clayton.”</span> <em>Computo</em>, accepted, November 1. <a href="https://doi.
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
         var filterRegex = new RegExp('/' + window.location.host + '/');
+      const newWindowLabel = "(opens in a new tab)";
+      const newWindowNoteId = "quarto-ext-newwindow-label";
+      // Links reference one hidden label through aria-describedby, so the
+      // announcement never changes their accessible name.
+      var describeNewWindow = (link) => {
+        if (!window.document.getElementById(newWindowNoteId)) {
+          var newWindowNote = window.document.createElement("span");
+          newWindowNote.id = newWindowNoteId;
+          newWindowNote.hidden = true;
+          newWindowNote.textContent = newWindowLabel;
+          window.document.body.appendChild(newWindowNote);
+        }
+        var describedBy = (link.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean);
+        if (!describedBy.includes(newWindowNoteId)) {
+          describedBy.push(newWindowNoteId);
+          link.setAttribute("aria-describedby", describedBy.join(" "));
+        }
+      }
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -1115,8 +1141,70 @@ Clayton.”</span> <em>Computo</em>, accepted, November 1. <a href="https://doi.
             if (link.getAttribute("rel") === null) {
               link.setAttribute("rel", "noopener");
             }
+            describeNewWindow(link);
+          if (!link.classList.contains('no-external-icon')) {
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -1130,6 +1218,7 @@ Clayton.”</span> <em>Computo</em>, accepted, November 1. <a href="https://doi.
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -1292,44 +1381,54 @@ Clayton.”</span> <em>Computo</em>, accepted, November 1. <a href="https://doi.
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -1427,6 +1526,9 @@ Clayton.”</span> <em>Computo</em>, accepted, November 1. <a href="https://doi.
       }
     }
   });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "A Python Package for Sampling from Copulae: clayton"</span></span>
